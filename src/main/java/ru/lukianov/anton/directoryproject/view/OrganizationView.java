@@ -5,7 +5,7 @@ import javax.validation.constraints.Size;
 
 public class OrganizationView {
 
-    public String id;
+    public Integer id;
 
     @Size(max = 50)
     @NotEmpty(message = "name cannot be null")
@@ -36,7 +36,7 @@ public class OrganizationView {
     }
 
     //конструктор для заглушки
-    public OrganizationView(String id, @Size(max = 50) @NotEmpty(message = "name cannot be null") String name, @Size(max = 80) @NotEmpty(message = "full name cannot be null") String fullName, @Size(max = 10) @NotEmpty(message = "inn cannot be null") String inn, @Size(max = 9) @NotEmpty(message = "kpp cannot be null") String kpp, @Size(max = 25) String phone, @Size(max = 100) @NotEmpty(message = "address cannot be null") String address, Boolean isActive) {
+    public OrganizationView(Integer id, @Size(max = 50) @NotEmpty(message = "name cannot be null") String name, @Size(max = 80) @NotEmpty(message = "full name cannot be null") String fullName, @Size(max = 10) @NotEmpty(message = "inn cannot be null") String inn, @Size(max = 9) @NotEmpty(message = "kpp cannot be null") String kpp, @Size(max = 25) String phone, @Size(max = 100) @NotEmpty(message = "address cannot be null") String address, Boolean isActive) {
         this.id = id;
         this.name = name;
         this.fullName = fullName;
