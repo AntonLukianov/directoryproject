@@ -53,10 +53,7 @@ public class EmployeeServiceImpl  implements EmployeeService {
     @Override
     @Transactional(readOnly = true)
     public EmployeeView findById(Integer id) {
-        if(id!=2) {
-            throw new EntityNotFoundException("Not found employee with id is " + id);
-        }
-        return new EmployeeView("2", "Иван", "Иванов", "Иванович",
-                "+7 (495) 995-2575", false, "1", "1", "2");
+        Employee employee = dao.loadById(id);
+        return mapperFacade.map(employee, EmployeeView.class);
     }
 }

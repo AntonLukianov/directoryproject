@@ -52,9 +52,7 @@ public class OfficeServiceImpl implements OfficeService {
     @Override
     @Transactional(readOnly = true)
     public OfficeView findById(Integer id) {
-        if(id!=1) {
-            throw new EntityNotFoundException("Not found employee with id is " + id);
-        }
-        return new OfficeView("1", "Офис", "+7 (456) 741-6565", "г. Москва", true, "1");
+        Office office = dao.loadById(id);
+        return mapperFacade.map(office, OfficeView.class);
     }
 }
