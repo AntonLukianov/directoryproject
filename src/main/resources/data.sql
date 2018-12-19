@@ -10,11 +10,11 @@ INSERT INTO Office (version, name, phone, address, is_active, org_id) VALUES (0,
 INSERT INTO Office (version, name, phone, address, is_active, org_id) VALUES (0, 'Офис 2', '+73431111111',
 'г. Екатеринбург, ул. Ленина, д. 30, оф. 35', true, 2);
 
-INSERT INTO Document (code, name ) VALUES ('21', 'Паспорт гражданина Российской Федерации');
+INSERT INTO Document (version, code, name ) VALUES (0, '21', 'Паспорт гражданина Российской Федерации');
 
-INSERT INTO Country (code, name) VALUES ('643', 'Российская Федерация');
+INSERT INTO Country (version, code, name) VALUES (0, '643', 'Российская Федерация');
 
-INSERT INTO Position (name) VALUES ( 'менеджер' );
+INSERT INTO Position (version, name) VALUES (0, 'менеджер' );
 
 INSERT INTO Employee (version, first_name, second_name, position_id , phone, country_id, office_id)
 VALUES (0, 'Иван', 'Фахретдинов', 1, '+79993503512', 1, 1);
@@ -22,6 +22,6 @@ VALUES (0, 'Иван', 'Фахретдинов', 1, '+79993503512', 1, 1);
 INSERT INTO Employee (version, first_name, second_name, position_id , phone, country_id, office_id)
 VALUES (0, 'Владимир', 'Лебелев', 1, '+73472564141', 1, 1);
 
-INSERT INTO Document_Employee (doc_id, number, date, empl_id) VALUES (1, '6305 454552', '2007-05-25', 1);
+INSERT INTO Document_Employee (version, doc_id, number, date, empl_id) VALUES (0, 1, '6305 454552', '2007-05-25', 1);
 
-INSERT INTO Document_Employee (doc_id, number, date, empl_id) VALUES (1, '6305 454356', '2017-02-03', 2);
+INSERT INTO Document_Employee (version, doc_id, number, date, empl_id) VALUES (0, 1, '6305 454356', '2017-02-03', 2);

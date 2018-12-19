@@ -1,10 +1,9 @@
-package ru.lukianov.anton.directoryproject.service.office;
+package ru.lukianov.anton.directoryproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.lukianov.anton.directoryproject.controller.EntityNotFoundException;
-import ru.lukianov.anton.directoryproject.dao.office.OfficeDao;
+import ru.lukianov.anton.directoryproject.dao.IGenericDao;
 import ru.lukianov.anton.directoryproject.model.Office;
 import ru.lukianov.anton.directoryproject.model.mapper.MapperFacade;
 import ru.lukianov.anton.directoryproject.view.OfficeView;
@@ -15,14 +14,15 @@ import java.util.List;
  * {@inheritDoc}
  */
 @Service
-public class OfficeServiceImpl implements OfficeService {
+public class OfficeServiceImpl implements IService<OfficeView, Integer> {
 
-    private final OfficeDao dao;
+    private final IGenericDao<Office, Integer> dao;
     private final MapperFacade mapperFacade;
 
     @Autowired
-    public OfficeServiceImpl(OfficeDao dao, MapperFacade mapperFacade) {
+    public OfficeServiceImpl(IGenericDao<Office, Integer> dao, MapperFacade mapperFacade) {
         this.dao = dao;
+        this.dao.setClazz(Office.class);
         this.mapperFacade = mapperFacade;
     }
 
@@ -41,7 +41,7 @@ public class OfficeServiceImpl implements OfficeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OfficeView> offices() {
+    public List<OfficeView> findAll() {
         List<Office> all = dao.all();
         return mapperFacade.mapAsList(all, OfficeView.class);
     }

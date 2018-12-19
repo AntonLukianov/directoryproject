@@ -1,12 +1,13 @@
 package ru.lukianov.anton.directoryproject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "Organization")
-public class Organization {
+public class Organization implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

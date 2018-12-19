@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.lukianov.anton.directoryproject.controller.EntityNotFoundException;
-import ru.lukianov.anton.directoryproject.service.organization.OrganizationService;
+import ru.lukianov.anton.directoryproject.service.IService;
 import ru.lukianov.anton.directoryproject.view.OrganizationView;
 
 import java.util.List;
@@ -18,10 +18,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/organization", produces = APPLICATION_JSON_VALUE)
 public class OrganizationController {
 
-    private final OrganizationService organizationService;
+    private final IService<OrganizationView, Integer> organizationService;
 
     @Autowired
-    public OrganizationController(OrganizationService organizationService) {
+    public OrganizationController(IService<OrganizationView, Integer> organizationService) {
         this.organizationService = organizationService;
     }
 
@@ -33,7 +33,7 @@ public class OrganizationController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<OrganizationView> organizations() {
-        return organizationService.organizations();
+        return organizationService.findAll();
     }
 
     /**
@@ -44,12 +44,12 @@ public class OrganizationController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public OrganizationView organizationById(@PathVariable("id") String orgIdentifier) {
         if (!orgIdentifier.matches("[\\d]+")) {
-            throw new EntityNotFoundException("Not found organization with id is " + orgIdentifier);
+            throw new EntityNotFoundException("Could not find organization " + orgIdentifier);
         }
         int id = Integer.parseInt(orgIdentifier);
         OrganizationView orgView = organizationService.findById(id);
         if(orgView == null) {
-            throw new EntityNotFoundException("Not found organization with id is " + id);
+            throw new EntityNotFoundException("Could not find organization " + id);
         }
         return orgView;
     }

@@ -1,10 +1,9 @@
-package ru.lukianov.anton.directoryproject.service.employee;
+package ru.lukianov.anton.directoryproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.lukianov.anton.directoryproject.controller.EntityNotFoundException;
-import ru.lukianov.anton.directoryproject.dao.employee.EmployeeDao;
+import ru.lukianov.anton.directoryproject.dao.IGenericDao;
 import ru.lukianov.anton.directoryproject.model.Employee;
 import ru.lukianov.anton.directoryproject.model.mapper.MapperFacade;
 import ru.lukianov.anton.directoryproject.view.EmployeeView;
@@ -15,14 +14,15 @@ import java.util.List;
  * {@inheritDoc}
  */
 @Service
-public class EmployeeServiceImpl  implements EmployeeService {
+public class EmployeeServiceImpl  implements IService<EmployeeView, Integer> {
 
-    private final EmployeeDao dao;
+    private final IGenericDao<Employee, Integer> dao;
     private final MapperFacade mapperFacade;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDao dao, MapperFacade mapperFacade) {
+    public EmployeeServiceImpl(IGenericDao<Employee, Integer> dao, MapperFacade mapperFacade) {
         this.dao = dao;
+        this.dao.setClazz(Employee.class);
         this.mapperFacade = mapperFacade;
     }
 
@@ -32,7 +32,7 @@ public class EmployeeServiceImpl  implements EmployeeService {
     @Override
     @Transactional
     public void add(EmployeeView view) {
-        Employee employee = new Employee(view.first_name, view.second_name, view.middle_name, view.phone,
+        Employee employee = new Employee(view.firstName, view.secondName, view.middleName, view.phone,
                 view.isIdentified, null, null, null);
         dao.save(employee);
     }
@@ -42,7 +42,7 @@ public class EmployeeServiceImpl  implements EmployeeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<EmployeeView> employees() {
+    public List<EmployeeView> findAll() {
         List<Employee> all = dao.all();
         return mapperFacade.mapAsList(all, EmployeeView.class);
     }

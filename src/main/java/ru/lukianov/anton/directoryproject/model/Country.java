@@ -1,13 +1,14 @@
 package ru.lukianov.anton.directoryproject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Страна
  */
 @Entity
-public class Country {
+public class Country implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

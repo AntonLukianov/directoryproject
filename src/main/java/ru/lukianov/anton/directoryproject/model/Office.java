@@ -1,6 +1,7 @@
 package ru.lukianov.anton.directoryproject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import java.util.Set;
  * Офис
  */
 @Entity
-public class Office {
+public class Office implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,11 +96,11 @@ public class Office {
         this.address = address;
     }
 
-    public Boolean getActive() {
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean active) {
+    public void setIsActive(Boolean active) {
         isActive = active;
     }
 

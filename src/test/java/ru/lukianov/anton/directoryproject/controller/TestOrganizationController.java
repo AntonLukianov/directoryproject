@@ -41,25 +41,26 @@ public class TestOrganizationController {
     public void testOrganization1() throws Exception {
         mockMvc.perform(get("/organization/1")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("ПАО Сбербанк(МСК)"))
                 .andExpect(jsonPath("$.fullName").value("Московский банк ПАО Сбербанк"))
                 .andExpect(jsonPath("$.inn").value("7707083893"))
                 .andExpect(jsonPath("$.kpp").value("773643001"))
                 .andExpect(jsonPath("$.phone").value("+74955005550"))
-                .andExpect(jsonPath("$.address").value("г. Москва, ул. Вавилова, д.19"));
+                .andExpect(jsonPath("$.address").value("г. Москва, ул. Вавилова, д.19"))
+                .andExpect(jsonPath("$.isActive").value(null));
     }
-
 
 
     @Test
     public void testOrganization2() throws Exception {
         mockMvc.perform(get("/organization/aa")).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.message").value("Not found organization with id is aa"));
+                .andExpect(jsonPath("$.error").value("Could not find organization aa"));
     }
 
     @Test
-    public void testOfficeById() {
+    public void testOrganizationById() {
         RestTemplate restTemplate = new RestTemplate(new MockMvcClientHttpRequestFactory(mockMvc));
         OrganizationView organizationView1 = restTemplate.getForObject("/organization/1", OrganizationView.class);
         OrganizationView organizationView2 = new OrganizationView(1,"ПАО Сбербанк(МСК)", "Московский банк ПАО Сбербанк","7707083893","773643001", "+74955005550","г. Москва, ул. Вавилова, д.19", null);

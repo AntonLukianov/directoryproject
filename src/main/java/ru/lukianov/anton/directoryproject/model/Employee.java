@@ -1,6 +1,8 @@
 package ru.lukianov.anton.directoryproject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -8,7 +10,7 @@ import java.util.Set;
  * Работник
  */
 @Entity
-public class Employee {
+public class Employee  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,11 +123,11 @@ public class Employee {
         this.phone = phone;
     }
 
-    public Boolean getIdentified() {
+    public Boolean getIsIdentified() {
         return isIdentified;
     }
 
-    public void setIdentified(Boolean identified) {
+    public void setIsIdentified(Boolean identified) {
         isIdentified = identified;
     }
 
@@ -154,6 +156,9 @@ public class Employee {
     }
 
     public Set<DocumentEmployee> getDocumentEmployeeSet() {
+        if (documentEmployeeSet == null) {
+            documentEmployeeSet = new HashSet<>();
+        }
         return documentEmployeeSet;
     }
 

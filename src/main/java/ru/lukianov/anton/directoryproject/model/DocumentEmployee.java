@@ -1,6 +1,7 @@
 package ru.lukianov.anton.directoryproject.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "Document_Employee")
-public class DocumentEmployee {
+public class DocumentEmployee  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
